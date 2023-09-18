@@ -32,10 +32,8 @@ public class Arena {
     public void finalizarPartida() {
         if (pontosVidaJogador1 <= 0) {
             jogador2.aumentarNivel();
-            jogador1.diminuirNivel(); // Como fazer isso?
         } else {
             jogador1.aumentarNivel();
-            jogador2.diminuirNivel();
         }
     }
 }

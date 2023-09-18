@@ -3,12 +3,12 @@ import java.util.List;
 
 public class Inventario {
     private int nivelAtual;
-    private int quantidadeCardcoins;
+    private int cardcoins; // Atributo renomeado para "cardcoins"
     private List<Carta> cartasLiberadas;
 
     public Inventario() {
         this.nivelAtual = 1;
-        this.quantidadeCardcoins = 0;
+        this.cardcoins = 0;
         this.cartasLiberadas = new ArrayList<>();
     }
 
@@ -16,8 +16,8 @@ public class Inventario {
         return nivelAtual;
     }
 
-    public int getQuantidadeCardcoins() {
-        return quantidadeCardcoins;
+    public int getCardcoins() {
+        return cardcoins;
     }
 
     public List<Carta> getCartasLiberadas() {
@@ -30,7 +30,13 @@ public class Inventario {
 
     public void adicionarCardcoins(int quantidade) {
         if (quantidade > 0) {
-            quantidadeCardcoins += quantidade;
+            cardcoins += quantidade;
+        }
+    }
+
+    public void removerCardcoins(int quantidade) {
+        if (quantidade > 0 && cardcoins >= quantidade) {
+            cardcoins -= quantidade;
         }
     }
 
