@@ -1,106 +1,97 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
-    private String user;
-    private String cpf;
+    private String username;
+    private String CPF;
     private String senha;
     private int idade;
-    private String sexo;
+    private char sexo;
     private String email;
-    private int nivel; // inicialmente 0
-    private Inventario inventario;
-    private Deck[] decks; // vetor de decks, 0 ate 5 posicoes
-    private int cardCoins; // inicialmente 0 
+    private int nivel;
+    private int saldoCardcoins;
+    private List<Carta> inventario;
+    private List<Deck> decks;
 
-    public Usuario(String user, String cpf, String senha, int idade, String sexo, String email, Inventario inventario){
-        this.user = user;
-        this.cpf = cpf;
+    // Instância única do usuário (usando o padrão Singleton)
+    private static Usuario instance;
+
+    private Usuario(String username, String CPF, String senha, int idade, char sexo, String email) {
+        this.username = username;
+        this.CPF = CPF;
         this.senha = senha;
         this.idade = idade;
         this.sexo = sexo;
         this.email = email;
-        this.nivel = 0;
-        this.inventario = inventario;
-        //this.deck = deck;
-        this.cardCoins = 0;
-        
+        this.nivel = 1;
+        this.saldoCardcoins = 0;
+        this.inventario = new ArrayList<>();
+        this.decks = new ArrayList<>();
     }
 
-    public String getUser() {
-        return user;
+    // Método para obter a instância única do usuário (Singleton)
+    public static Usuario getInstance(String username, String CPF, String senha, int idade, char sexo, String email) {
+        if (instance == null) {
+            instance = new Usuario(username, CPF, senha, idade, sexo, email);
+        }
+        return instance;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public String getUsername() {
+        return username;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public String getCPF() {
+        return CPF;
     }
 
     public int getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getSexo() {
+    public char getSexo() {
         return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getNivel() {
         return nivel;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public int getSaldoCardcoins() {
+        return saldoCardcoins;
     }
 
-    public Inventario getInventario() {
+    public List<Carta> getInventario() {
         return inventario;
     }
 
-    public void setInventario(Inventario inventario) {
-        this.inventario = inventario;
-    }
-
-    public Deck[] getDecks() {
+    public List<Deck> getDecks() {
         return decks;
     }
 
-    public void setDecks(Deck[] decks) {
-        this.decks = decks;
+    public void aumentarNivel() {
+        nivel++;
     }
 
-    public int getCardCoins() {
-        return cardCoins;
+    public void adicionarCardcoins(int quantidade) {
+        if (quantidade > 0) {
+            saldoCardcoins += quantidade;
+        }
     }
 
-    public void setCardCoins(int cardCoins) {
-        this.cardCoins = cardCoins;
+    public void adicionarCartasAoInventario(List<Carta> cartas) {
+        inventario.addAll(cartas);
+    }
+
+    public void adicionarDeck(Deck deck) {
+        if (decks.size() < 5) {
+            decks.add(deck);
+        } else {
+            throw new IllegalStateException("Você já possui o número máximo de decks.");
+        }
     }
 }
