@@ -37,6 +37,8 @@ public class Deck {
             cartasNoDeck.add(carta);
             inventario.remove(carta);
             quantidadeDeCartas++;
+        } else {
+            throw new IllegalStateException("A carta não está no inventário do usuário");
         }
 
         if (quantidadeDeCartas >= 60) {
@@ -50,7 +52,7 @@ public class Deck {
             quantidadeDeCartas--;
             disponibilidade = false;
         }
-    }
+    } 
 
     public void adicionarAoInventario(Carta carta) {
         inventario.add(carta);

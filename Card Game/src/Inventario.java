@@ -43,4 +43,23 @@ public class Inventario {
     public void adicionarCartasLiberadas(List<Carta> cartas) {
         cartasLiberadas.addAll(cartas);
     }
+
+    public boolean possuiCarta(Carta carta) {
+        return cartasLiberadas.contains(carta);
+    }
+
+
+    public int getQuantidadeCarta(Carta carta) {
+        int quantidade = 0;
+        for (Carta c : cartasLiberadas) {
+            if (c.equals(carta)) {
+                quantidade++;
+            }
+        }
+        return quantidade;
+    }
+
+    public void adicionarCarta(Carta carta) {
+        cartasLiberadas.add(carta);
+    }
 }

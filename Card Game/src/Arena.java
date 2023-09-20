@@ -25,6 +25,18 @@ public class Arena {
     public void realizarAcao(Carta carta, int jogador) {
     }
 
+    
+    public void verificarQuemvenceuapartida() {
+        if (pontosVidaJogador1 <= 0 && pontosVidaJogador2 <= 0) {
+            System.out.println("A partida foi empate");
+        } else if (pontosVidaJogador1 <= 0) {
+            System.out.println("O jogador 2 venceu a partida");
+        } else {
+            System.out.println("O jogador 1 venceu a partida");
+        }
+    }
+    
+    
     public boolean verificaFimDePartida() {
         return pontosVidaJogador1 <= 0 || pontosVidaJogador2 <= 0;
     }

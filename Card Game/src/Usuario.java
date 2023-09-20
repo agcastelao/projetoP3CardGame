@@ -45,6 +45,10 @@ public class Usuario {
         return CPF;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
     public int getIdade() {
         return idade;
     }
