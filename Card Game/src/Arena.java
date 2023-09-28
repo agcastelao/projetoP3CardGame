@@ -3,14 +3,22 @@ public class Arena {
     private Usuario jogador2;
     private Deck deckJogador1;
     private Deck deckJogador2;
+    private Deck deckequipe1;
+    private Deck deckequipe2;
+    private Usuario[] equipe1;
+    private Usuario[] equipe2;
     private Carta[][] campoJogador1;
     private Carta[][] campoJogador2;
     private int pontosVidaJogador1;
     private int pontosVidaJogador2;
 
-    public Arena(Usuario jogador1, Usuario jogador2, Deck deckJogador1) {
+    public Arena(Usuario jogador1, Usuario jogador2, Deck deckJogador1, Usuario[] equipe1, Usuario[] equipe2, Deck deckequipe1, Deck deckequipe2) {
         this.jogador1 = jogador1;
         this.jogador2 = jogador2;
+        this.deckequipe1 = deckequipe1;
+        this.deckequipe2 = deckequipe2;
+        this.equipe1 = equipe1;
+        this.equipe2 = equipe2;
         this.deckJogador1 = deckJogador1;
         this.deckJogador2 = null; // Suponha que o deck do jogador2 seja escolhido posteriormente
         this.campoJogador1 = new Carta[2][5];
@@ -18,6 +26,8 @@ public class Arena {
         this.pontosVidaJogador1 = 20;
         this.pontosVidaJogador2 = 20;
     }
+
+    
 
     public void iniciarPartida() {
     }
