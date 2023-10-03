@@ -6,10 +6,10 @@ public class Carta {
     private int ataque;
     private int defesa;
     private int custo;
-    private String habilidade;
+    private Habilidade habilidade;
     private int quantidade;
 
-    public Carta(String nome, String imagem, String tipo, String raridade, int ataque, int defesa, int custo, String habilidade) {
+    public Carta(String nome, String imagem, String tipo, String raridade, int ataque, int defesa, int custo, Habilidade habilidade) {
         this.nome = nome;
         this.imagem = imagem;
         this.tipo = tipo;
@@ -59,7 +59,7 @@ public class Carta {
         return custo;
     }
 
-    public String getHabilidade() {
+    public Habilidade getHabilidade() {
         return habilidade;
     }
 
