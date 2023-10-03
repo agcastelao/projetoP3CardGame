@@ -1,19 +1,37 @@
 public class Carta {
+    public enum Raridade {
+        COMUM(0.8),
+        INCOMUM(0.15),
+        RARA(0.04),
+        MUITO_RARA(0.008),
+        EPICA(0.002);
+
+        private final double probabilidade;
+
+        Raridade(double probabilidade) {
+            this.probabilidade = probabilidade;
+        }
+
+        public double getProbabilidade() {
+            return probabilidade;
+        }
+    }
+
     private String nome;
     private String imagem;
     private String tipo;
-    private String raridade;
+    private Raridade raridade;
     private int ataque;
     private int defesa;
     private int custo;
     private Habilidade habilidade;
     private int quantidade;
 
-    public Carta(String nome, String imagem, String tipo, String raridade, int ataque, int defesa, int custo, Habilidade habilidade) {
+    private Carta(String nome, String imagem, String tipo, Raridade raridade, int ataque, int defesa, int custo, Habilidade habilidade) {
         this.nome = nome;
         this.imagem = imagem;
         this.tipo = tipo;
-        setRaridade(raridade);
+        this.raridade = raridade;
         this.ataque = ataque;
         this.defesa = defesa;
         this.custo = custo;
@@ -33,18 +51,8 @@ public class Carta {
         return tipo;
     }
 
-    public String getRaridade() {
+    public Raridade getRaridade() {
         return raridade;
-    }
-
-    public void setRaridade(String raridade) {
-        // Verificar se a raridade é válida antes de atribuir
-        if (raridade.equals("comum") || raridade.equals("incomum") || raridade.equals("rara") ||
-            raridade.equals("muito rara") || raridade.equals("epica")) {
-            this.raridade = raridade;
-        } else {
-            throw new IllegalArgumentException("Raridade inválida");
-        }
     }
 
     public int getAtaque() {

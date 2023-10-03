@@ -4,7 +4,7 @@ public class CartaUnique extends Carta {
     private String habilidadeExtra;
 
     public CartaUnique(String nome, String imagem, String tipo, String raridade, int ataque, int defesa, int custo) {
-        super(nome, imagem, tipo, raridade, ataque + 1, defesa + 1, custo, "");
+        super(nome, imagem, tipo, raridade, ataque + 1, defesa + 1, custo, Habilidade.FOGO);
         Random random = new Random();
         setHabilidadeExtraAleatoria(random);
     }
