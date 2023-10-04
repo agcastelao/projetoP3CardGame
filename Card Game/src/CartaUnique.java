@@ -3,8 +3,8 @@ import java.util.Random;
 public class CartaUnique extends Carta {
     private String habilidadeExtra;
 
-    public CartaUnique(String nome, String imagem, String tipo, String raridade, int ataque, int defesa, int custo) {
-        super(nome, imagem, tipo, raridade, ataque + 1, defesa + 1, custo, Habilidade.FOGO);
+    public CartaUnique(String nome, String imagem, String tipo, String raridade, int ataque, int defesa, int custo, Habilidade habilidade) {
+        super(nome, imagem, tipo, raridade, ataque + 1, defesa + 1, custo, habilidade);
         Random random = new Random();
         setHabilidadeExtraAleatoria(random);
     }
@@ -22,5 +22,4 @@ public class CartaUnique extends Carta {
     public void setHabilidadeExtra(String habilidadeExtra) {
         this.habilidadeExtra = habilidadeExtra;
     }
-
 }
