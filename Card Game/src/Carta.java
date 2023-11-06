@@ -26,8 +26,10 @@ public class Carta {
     private int custo;
     private Habilidade habilidade;
     private int quantidade;
+    private int pontosVida;
+    private int mana;
 
-    private Carta(String nome, String imagem, String tipo, Raridade raridade, int ataque, int defesa, int custo, Habilidade habilidade) {
+    private Carta(String nome, String imagem, String tipo, Raridade raridade, int ataque, int defesa, int custo, Habilidade habilidade, int pontosVida, int mana) {
         this.nome = nome;
         this.imagem = imagem;
         this.tipo = tipo;
@@ -37,7 +39,9 @@ public class Carta {
         this.custo = custo;
         this.habilidade = habilidade;
         this.quantidade = 0;
+        this.pontosVida = pontosVida;
     }
+
 
     public String getNome() {
         return nome;
@@ -73,6 +77,14 @@ public class Carta {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public int getPontosVida() {
+        return pontosVida;
+    }
+
+    public void setPontosVida(int pontosVida) {
+        this.pontosVida = pontosVida;
     }
 
     public void aumentarQuantidade() {

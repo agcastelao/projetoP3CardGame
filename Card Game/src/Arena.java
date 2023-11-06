@@ -7,29 +7,30 @@ public class Arena {
     private Deck deckJogador2;
     private Deck deckequipe1;
     private Deck deckequipe2;
-    private Usuario[] equipe1;
-    private Usuario[] equipe2;
     private Carta[][] campoJogador1;
     private Carta[][] campoJogador2;
     private int pontosVidaJogador1;
     private int pontosVidaJogador2;
+    private Carta[] maoJogador1 = new Carta[11];
+    private Carta[] maoJogador2 = new Carta[11];
+    private int manaMaximaJogador1 = 0;
+    private int manaMaximaJogador2 = 0;
+    private Carta[] cemiterioJogador1 = new Carta[100];
+    private Carta[] cemiterioJogador2 = new Carta[100];
 
     public Arena(Usuario jogador1, Usuario jogador2, Deck deckJogador1, Usuario[] equipe1, Usuario[] equipe2, Deck deckequipe1, Deck deckequipe2) {
         this.jogador1 = jogador1;
         this.jogador2 = jogador2;
         this.deckequipe1 = deckequipe1;
         this.deckequipe2 = deckequipe2;
-        this.equipe1 = equipe1;
-        this.equipe2 = equipe2;
         this.deckJogador1 = deckJogador1;
-        this.deckJogador2 = null; 
+        this.deckJogador2 = deckJogador2;
         this.campoJogador1 = new Carta[2][5];
         this.campoJogador2 = new Carta[2][5];
         this.pontosVidaJogador1 = 20;
         this.pontosVidaJogador2 = 20;
     }
 
-    
     public void iniciarPartida() {
         if (sortearInicio()) {
             System.out.println("Jogador 1 começa.");
@@ -42,24 +43,27 @@ public class Arena {
 
     public void realizarAcao(Carta carta, int jogador) {
         if (jogador == 1) {
-            ataque(1, 1);
+            ataque(jogador1, jogador2);
         } else if (jogador == 2) {
-            ataque(1, 1);
+            ataque(jogador2, jogador1);
         }
     }
 
-    
     public void verificarQuemvenceuapartida() {
         if (pontosVidaJogador1 <= 0 && pontosVidaJogador2 <= 0) {
             System.out.println("A partida foi empate");
         } else if (pontosVidaJogador1 <= 0) {
             System.out.println("O jogador 2 venceu a partida");
+            jogador2.adicionarCardcoins(100);
+            jogador1.adicionarCardcoins(10);
         } else {
             System.out.println("O jogador 1 venceu a partida");
+            jogador1.adicionarCardcoins(100);
+            jogador2.adicionarCardcoins(10);
         }
     }
     
-    
+
     public boolean verificaFimDePartida() {
         return pontosVidaJogador1 <= 0 || pontosVidaJogador2 <= 0;
     }
@@ -72,117 +76,105 @@ public class Arena {
         }
     }
 
-    public boolean sortearInicio () {
+    public boolean sortearInicio() {
         Random random = new Random();
         return random.nextBoolean();
     }
 
-    public boolean turnoJogador1() {
+    public void turnoJogador1() {
         System.out.println("Turno do jogador 1:");
-    
-        compra(jogador1);
-    
+        saque(jogador1);
+        manaMaximaJogador1++;
         posicionamento();
-    
         ataque(jogador1, jogador2);
-    
+
         if (verificaFimDePartida()) {
             verificarQuemvenceuapartida();
             finalizarPartida();
-            return false;
+        } else {
+            turnoJogador2();
         }
-    
-        turnoJogador2();
     }
 
     public void turnoJogador2() {
         System.out.println("Turno do jogador 2:");
-    
-        compra(jogador2);
-    
+        saque(jogador2);
+        manaMaximaJogador2++;
         posicionamento();
-    
         ataque(jogador2, jogador1);
-    
+
         if (verificaFimDePartida()) {
             verificarQuemvenceuapartida();
             finalizarPartida();
-            return;
-        }
-    
-        turnoJogador1();
-    }
-
-    private void compra(Usuario jogador22) {
-    }
-
-
-    public void comprar() {
-        Random random = new Random();
-        if (turnoJogador1()) {
-            if (deckJogador1.getQuantidadeDeCartas() > 0) {
-                int indiceCartaAleatoria = random.nextInt(deckJogador1.getQuantidadeDeCartas());
-                Carta cartaComprada = deckJogador1.getCartasNoDeck().remove(indiceCartaAleatoria);
-                maoJogador1[9] = cartaComprada; 
-                manaMaximaJogador1++; 
-            }
         } else {
-            if (deckJogador2.getQuantidadeDeCartas() > 0) {
-                int indiceCartaAleatoria = random.nextInt(deckJogador2.getQuantidadeDeCartas());
-                Carta cartaComprada = deckJogador2.getCartasNoDeck().remove(indiceCartaAleatoria);
-                maoJogador2[9] = cartaComprada;
-                manaMaximaJogador2++; 
+            turnoJogador1();
+        }
+    }
+
+    public void saque(Usuario jogador) {
+        Random random = new Random();
+        for (int i = 0; i < 7; i++) {
+            Deck deck = (jogador == jogador1) ? deckJogador1 : deckJogador2;
+            Carta[] mao = (jogador == jogador1) ? maoJogador1 : maoJogador2;
+
+            if (deck.getQuantidadeDeCartas() > 0) {
+                int indiceCartaAleatoria = random.nextInt(deck.getQuantidadeDeCartas());
+                Carta cartaComprada = deck.adicionarCarta().remove(indiceCartaAleatoria);
+                mao[i] = cartaComprada;
             }
         }
     }
 
     public void posicionamento() {
         Random random = new Random();
-        int posicaoMao = turnoJogador1() ? 9 : 4;
-        Carta cartaPosicionada = turnoJogador1() ? maoJogador1[posicaoMao] : maoJogador2[posicaoMao];
+        int posicaoMao = (sortearInicio()) ? 7 : 2;
+        Carta[] mao = (sortearInicio()) ? maoJogador1 : maoJogador2;
+        int linha = (sortearInicio()) ? 1 : 0;
+        Carta[][] campo = (sortearInicio()) ? campoJogador1 : campoJogador2;
 
-        if (cartaPosicionada != null) {
-            if (cartaPosicionada.getTipo().equals("Mana")) {
-                if (turnoJogador1() && manaMaximaJogador1 > 0) {
-                    manaMaximaJogador1--;
-                } else if (!turnoJogador1() && manaMaximaJogador2 > 0) {
-                    manaMaximaJogador2--;
+        for (int i = 0; i < 7; i++) {
+            if (mao[i] != null) {
+                if (mao[i].getTipo().equals("Mana") && mao[i].getMana() <= manaMaximaJogador1) {
+                    manaMaximaJogador1 -= mao[i].getMana();
+                } else if (mao[i].getTipo().equals("Criatura")) {
+                    int posicaoCampo = random.nextInt(5);
+                    campo[linha][posicaoCampo] = mao[i];
+                    mao[i] = null;
                 }
-            } else {
-                int linha = turnoJogador1() ? 1 : 0;
-                int posicaoCampo = random.nextInt(5); 
-                campoJogador1[linha][posicaoCampo] = cartaPosicionada; 
-                maoJogador1[posicaoMao] = null;
             }
         }
     }
 
-    public void ataque(Usuario jogador22, Usuario jogador12) {
+    public void ataque(Usuario jogadorAtacante, Usuario jogadorDefensor) {
+        Carta[][] campoAtacante = (jogadorAtacante == jogador1) ? campoJogador1 : campoJogador2;
+        Carta[][] campoDefensor = (jogadorDefensor == jogador1) ? campoJogador1 : campoJogador2;
+
         for (int i = 0; i < 5; i++) {
-            Carta cartaAtacante = jogador22[i];
-            Carta cartaDefensora = jogador12[i];
+            Carta cartaAtacante = campoAtacante[1][i];
+            Carta cartaDefensora = campoDefensor[0][i];
 
             if (cartaAtacante != null && cartaDefensora != null) {
                 int dano = cartaAtacante.getAtaque() - cartaDefensora.getDefesa();
                 if (dano > 0) {
-
                     cartaDefensora.setPontosVida(cartaDefensora.getPontosVida() - dano);
 
                     if (cartaDefensora.getPontosVida() <= 0) {
-                        jogador12[i] = null;
+                        campoDefensor[0][i] = null;
+                        enviarParaCemiterio(cartaDefensora, jogadorDefensor);
                     }
                 }
             }
         }
     }
 
-    public boolean cartaJaNaMao(int[] indicesCartas, int indice) {
-        for (int i = 0; i < indicesCartas.length; i++) {
-            if (indicesCartas[i] == indice) {
-                return true;
+    public void enviarParaCemiterio(Carta carta, Usuario jogador) {
+        Carta[] cemiterio = (jogador == jogador1) ? cemiterioJogador1 : cemiterioJogador2;
+        for (int i = 0; i < cemiterio.length; i++) {
+            if (cemiterio[i] == null) {
+                cemiterio[i] = carta;
+                break;
             }
         }
-        return false;
     }
-
 }
+
