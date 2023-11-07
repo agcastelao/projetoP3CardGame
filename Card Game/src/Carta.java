@@ -40,6 +40,7 @@ public class Carta {
         this.habilidade = habilidade;
         this.quantidade = 0;
         this.pontosVida = pontosVida;
+        
     }
 
 
@@ -99,5 +100,10 @@ public class Carta {
         if (quantidade > 0) {
             quantidade--;
         }
+    }
+
+
+    public int getMana() {
+        return 0;
     }
 }

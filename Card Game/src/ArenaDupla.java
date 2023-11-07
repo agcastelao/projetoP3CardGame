@@ -20,9 +20,10 @@ public class ArenaDupla extends Arena {
         
         // Saque para jogador1
         for (int i = 0; i < 7; i++) {
-            if (deckJogador1.getQuantidadeDeCartas() > 0) {
-                int indiceCartaAleatoria = random.nextInt(deckJogador1.getQuantidadeDeCartas());
-                Carta cartaComprada = deckJogador1.getCartasNoDeck().remove(indiceCartaAleatoria);
+            if (super.getDeckequipe1().getQuantidadeDeCartas() > 0) {
+                int indiceCartaAleatoria = random.nextInt(super.getDeckequipe1().getQuantidadeDeCartas());
+                Carta cartaParaRemover = super.getDeckequipe1().getIndex(indiceCartaAleatoria);
+                Carta cartaComprada = super.getDeckequipe1().getCartasNoDeck().removerCarta(cartaParaRemover);
                 maoJogador1[i] = cartaComprada;
             }
         }

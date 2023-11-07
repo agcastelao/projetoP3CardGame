@@ -116,14 +116,16 @@ public class Arena {
         for (int i = 0; i < 7; i++) {
             Deck deck = (jogador == jogador1) ? deckJogador1 : deckJogador2;
             Carta[] mao = (jogador == jogador1) ? maoJogador1 : maoJogador2;
-
+    
             if (deck.getQuantidadeDeCartas() > 0) {
                 int indiceCartaAleatoria = random.nextInt(deck.getQuantidadeDeCartas());
-                Carta cartaComprada = deck.adicionarCarta().remove(indiceCartaAleatoria);
+                Carta cartaParaRemover = deck.getIndex(indiceCartaAleatoria);
+                Carta cartaComprada = deck.removerCarta(cartaParaRemover);
                 mao[i] = cartaComprada;
             }
         }
     }
+    
 
     public void posicionamento() {
         Random random = new Random();
@@ -175,6 +177,13 @@ public class Arena {
                 break;
             }
         }
+    }
+
+    public Deck getDeckequipe1() {
+        return deckequipe1;
+    }
+    public Deck getDeckequipe2() {
+        return deckequipe2;
     }
 }
 

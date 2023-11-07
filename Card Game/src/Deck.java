@@ -15,6 +15,9 @@ public class Deck {
         this.cartasNoDeck = new ArrayList<>();
         this.inventario = new ArrayList<>();
     }
+    public Carta getIndex(int index) {
+        return cartasNoDeck.get(index);
+    }
 
     public String getNome() {
         return nome;
@@ -46,15 +49,20 @@ public class Deck {
         }
     }
 
-    public void removerCarta(Carta carta) {
-        if (cartasNoDeck.remove(carta)) {
-            inventario.add(carta);
-            quantidadeDeCartas--;
-            disponibilidade = false;
-        }
+    public Carta removerCarta(Carta carta) {
+        
+        cartasNoDeck.remove(carta);
+        inventario.add(carta);
+        quantidadeDeCartas--;
+        disponibilidade = false;
+        return carta;
+        
     } 
 
     public void adicionarAoInventario(Carta carta) {
         inventario.add(carta);
+    }
+    public List<Carta> getCartasNoDeck() {
+        return cartasNoDeck;
     }
 }
