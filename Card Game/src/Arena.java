@@ -1,6 +1,13 @@
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Arena {
+    private Timer timerJogador1;
+    private Timer timerJogador2;
+    private boolean jogador1Timeout = false;
+    private boolean jogador2Timeout = false;
     private Usuario jogador1;
     private Usuario jogador2;
     private Deck deckJogador1;
@@ -29,21 +36,53 @@ public class Arena {
         this.campoJogador2 = new Carta[2][5];
         this.pontosVidaJogador1 = 20;
         this.pontosVidaJogador2 = 20;
+        this.timerJogador1 = new Timer();
+        this.timerJogador2 = new Timer();
     }
 
     public Arena(Usuario jogador12, Usuario jogador22, Deck deckJogador12, Deck deckJogador22, Deck deckequipe12,
             Deck deckequipe22) {
     }
 
-    public void iniciarPartida() {
+    public void iniciarPartida() throws Exception {
         if (sortearInicio()) {
             System.out.println("Jogador 1 começa.");
+            iniciarTemporizador(jogador1, timerJogador1);
             turnoJogador1();
         } else {
             System.out.println("Jogador 2 começa.");
+            iniciarTemporizador(jogador2, timerJogador2);
             turnoJogador2();
         }
+    
+        if (jogador1Timeout) {
+            cancelarTemporizador(timerJogador1);
+            throw new TimeOutException("Timeout: O jogador 1 estourou o tempo de espera.");
+        } else if (jogador2Timeout) {
+            cancelarTemporizador(timerJogador2);
+            throw new TimeOutException("Timeout: O jogador 2 estourou o tempo de espera.");
+        }
     }
+    private void iniciarTemporizador(Usuario jogador, Timer timer) {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (jogador == jogador1) {
+                    jogador1Timeout = true;
+                } else if (jogador == jogador2) {
+                    jogador2Timeout = true;
+                }
+            }
+        }, TEMPO_MAXIMO_DE_ESPERA);
+    }
+
+    
+
+private void cancelarTemporizador(Timer timer) {
+    timer.cancel();
+}
+
+    
 
     public void realizarAcao(Carta carta, int jogador) {
         if (jogador == 1) {
@@ -213,4 +252,5 @@ public class Arena {
         return jogador2;
     }
 }
+
 
