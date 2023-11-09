@@ -253,5 +253,3 @@ private void cancelarTemporizador(Timer timer) {
         return jogador2;
     }
 }
-
-
