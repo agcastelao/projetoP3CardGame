@@ -43,7 +43,7 @@ public class Lobby {
     }
 
     
-    public void iniciarPartidaDuelo(Usuario jogador1, Usuario jogador2) {
+    public void iniciarPartidaDuelo(Usuario jogador1, Usuario jogador2) throws Exception {
         // Ver se tem pelo menos um jogador na partida
         if (!isJogadorNoLobby(jogador1) || !isJogadorNoLobby(jogador2)) {
             return;
@@ -80,7 +80,7 @@ public class Lobby {
         return false;
     }
     
-    public void iniciarPartidaDupla() {
+    public void iniciarPartidaDupla() throws Exception {
         // Verificar se há pelo menos 4 jogadores no lobby 
         if (jogadorCont < 4) {
             return;

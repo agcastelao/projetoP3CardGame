@@ -4,6 +4,7 @@ import java.util.TimerTask;
 
 
 public class Arena {
+    private static final long TEMPO_MAXIMO_DE_ESPERA = 300000;
     private Timer timerJogador1;
     private Timer timerJogador2;
     private boolean jogador1Timeout = false;
