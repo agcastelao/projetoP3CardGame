@@ -84,7 +84,7 @@ public class Loja {
 
         for (int i = 0; i < 12; i++) {
             int indiceAleatorio = random.nextInt(200); // Suponha que existam 200 cartas no jogo
-            Carta cartaAleatoria = new Carta();
+            Carta cartaAleatoria = new Carta("Carta Única", "Imagem", "Tipo", "Raridade", 1, 1, 1, null);
             cartasDoBooster.add(cartaAleatoria);
         }
 
@@ -100,9 +100,9 @@ public class Loja {
             Carta cartaAleatoria;
 
             if (promocao && random.nextDouble() <= 0.01) { // Probabilidade de 1%
-                cartaAleatoria = new CartaUnique("Carta Única", "Imagem", "Tipo", "Raridade", 1, 1, 1);
+                cartaAleatoria = new CartaUnique("Carta Única", "Imagem", "Tipo", "Raridade", 1, 1, 1, null);
             } else {
-                cartaAleatoria = new Carta();
+                cartaAleatoria = new Carta("Carta Única", "Imagem", "Tipo", "Raridade", 1, 1, 1, null);
             }
 
             cartasDoBooster.add(cartaAleatoria);

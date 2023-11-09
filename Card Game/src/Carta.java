@@ -44,6 +44,11 @@ public class Carta {
     }
 
 
+    public Carta(String nome2, String imagem2, String tipo2, String raridade2, int i, int j, int custo2,
+            Habilidade habilidade2) {
+    }
+
+
     public String getNome() {
         return nome;
     }

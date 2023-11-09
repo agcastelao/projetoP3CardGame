@@ -14,7 +14,7 @@ public class ArenaDupla extends Arena {
         this.aliadosJogador4 = new Carta[5]; 
     }
 
-    @Override
+
     public void saque() {
         Random random = new Random();
         
@@ -22,35 +22,34 @@ public class ArenaDupla extends Arena {
         for (int i = 0; i < 7; i++) {
             if (super.getDeckequipe1().getQuantidadeDeCartas() > 0) {
                 int indiceCartaAleatoria = random.nextInt(super.getDeckequipe1().getQuantidadeDeCartas());
-                Carta cartaParaRemover = super.getDeckequipe1().getIndex(indiceCartaAleatoria);
-                Carta cartaComprada = super.getDeckequipe1().getCartasNoDeck().removerCarta(cartaParaRemover);
-                maoJogador1[i] = cartaComprada;
+                Carta cartaComprada = super.getDeckequipe1().getCartasNoDeck().remove(indiceCartaAleatoria);
+                getMaoJogador1()[i] = cartaComprada;
             }
         }
 
         // Saque para jogador2
         for (int i = 0; i < 7; i++) {
-            if (deckJogador2.getQuantidadeDeCartas() > 0) {
-                int indiceCartaAleatoria = random.nextInt(deckJogador2.getQuantidadeDeCartas());
-                Carta cartaComprada = deckJogador2.getCartasNoDeck().remove(indiceCartaAleatoria);
-                maoJogador2[i] = cartaComprada;
+            if (getDeckJogador2().getQuantidadeDeCartas() > 0) {
+                int indiceCartaAleatoria = random.nextInt(getDeckJogador2().getQuantidadeDeCartas());
+                Carta cartaComprada = getDeckJogador2().getCartasNoDeck().remove(indiceCartaAleatoria);
+                getMaoJogador2()[i] = cartaComprada;
             }
         }
 
         // Saque para jogador3
         for (int i = 0; i < 7; i++) {
-            if (deckequipe1.getQuantidadeDeCartas() > 0) {
-                int indiceCartaAleatoria = random.nextInt(deckequipe1.getQuantidadeDeCartas());
-                Carta cartaComprada = deckequipe1.getCartasNoDeck().remove(indiceCartaAleatoria);
+            if (super.getDeckequipe1().getQuantidadeDeCartas() > 0) {
+                int indiceCartaAleatoria = random.nextInt(super.getDeckequipe1().getQuantidadeDeCartas());
+                Carta cartaComprada = super.getDeckequipe1().getCartasNoDeck().remove(indiceCartaAleatoria);
                 aliadosJogador3[i] = cartaComprada;
             }
         }
 
         // Saque para jogador4
         for (int i = 0; i < 7; i++) {
-            if (deckequipe2.getQuantidadeDeCartas() > 0) {
-                int indiceCartaAleatoria = random.nextInt(deckequipe2.getQuantidadeDeCartas());
-                Carta cartaComprada = deckequipe2.getCartasNoDeck().remove(indiceCartaAleatoria);
+            if (getDeckequipe2().getQuantidadeDeCartas() > 0) {
+                int indiceCartaAleatoria = random.nextInt(getDeckequipe2().getQuantidadeDeCartas());
+                Carta cartaComprada = getDeckequipe2().getCartasNoDeck().remove(indiceCartaAleatoria);
                 aliadosJogador4[i] = cartaComprada;
             }
         }
@@ -64,10 +63,10 @@ public class ArenaDupla extends Arena {
         
         if (jogadorInicial == 0) {
             System.out.println("Jogador 1 começa.");
-            turno(jogador1, jogador2, aliadosJogador3, aliadosJogador4);
+            turno(getJogador1(), getJogador2(), aliadosJogador3, aliadosJogador4);
         } else if (jogadorInicial == 1) {
             System.out.println("Jogador 2 começa.");
-            turno(jogador2, jogador1, aliadosJogador4, aliadosJogador3);
+            turno(getJogador2(), getJogador1(), aliadosJogador4, aliadosJogador3);
         } else if (jogadorInicial == 2) {
             System.out.println("Jogador 3 começa.");
             turno(jogador3, jogador4, aliadosJogador3, aliadosJogador4);
@@ -79,7 +78,7 @@ public class ArenaDupla extends Arena {
 
     // Sobrecarregando o método turno para lidar com aliados
     public void turno(Usuario jogadorAtual, Usuario jogadorInimigo, Carta[] aliadosJogadorAtual, Carta[] aliadosJogadorInimigo) {
-        System.out.println("Turno do jogador " + jogadorAtual.getNome() + ":");
+        System.out.println("Turno do jogador " + jogadorAtual.getUsername() + ":");
 
         // Lógica do turno aqui
 
@@ -90,14 +89,14 @@ public class ArenaDupla extends Arena {
         }
 
         // Passar o turno para o próximo jogador
-        if (jogadorAtual == jogador1) {
-            turno(jogador2, jogador1, aliadosJogador4, aliadosJogador3);
-        } else if (jogadorAtual == jogador2) {
+        if (jogadorAtual == getJogador1()) {
+            turno(getJogador2(), getJogador1(), aliadosJogador4, aliadosJogador3);
+        } else if (jogadorAtual == getJogador2()) {
             turno(jogador3, jogador4, aliadosJogador3, aliadosJogador4);
         } else if (jogadorAtual == jogador3) {
             turno(jogador4, jogador3, aliadosJogador4, aliadosJogador3);
         } else {
-            turno(jogador1, jogador2, aliadosJogador3, aliadosJogador4);
+            turno(getJogador1(), getJogador2(), aliadosJogador3, aliadosJogador4);
         }
     }
 }

@@ -31,6 +31,10 @@ public class Arena {
         this.pontosVidaJogador2 = 20;
     }
 
+    public Arena(Usuario jogador12, Usuario jogador22, Deck deckJogador12, Deck deckJogador22, Deck deckequipe12,
+            Deck deckequipe22) {
+    }
+
     public void iniciarPartida() {
         if (sortearInicio()) {
             System.out.println("Jogador 1 começa.");
@@ -184,6 +188,29 @@ public class Arena {
     }
     public Deck getDeckequipe2() {
         return deckequipe2;
+    }
+
+    public Deck getDeckJogador1() {
+        return deckJogador1;
+    }
+
+    public Deck getDeckJogador2() {
+        return deckJogador2;
+    }
+
+    public Carta[] getMaoJogador1() {
+        return maoJogador1;
+    }
+
+    public Carta[] getMaoJogador2() {
+        return maoJogador2;
+    }
+    public Usuario getJogador1() {
+        return jogador1;
+    }
+
+    public Usuario getJogador2() {
+        return jogador2;
     }
 }
 
