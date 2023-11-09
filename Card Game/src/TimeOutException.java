@@ -1,6 +1,7 @@
 public class TimeOutException extends Exception {
 
-    public TimeOutException(String string) {
-        }
+    public TimeOutException(String mensagem) {
+        super(mensagem);
+    }
 
 }
