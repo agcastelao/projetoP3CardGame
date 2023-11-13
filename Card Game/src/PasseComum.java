@@ -8,8 +8,14 @@ public class PasseComum extends Progresso{
         }
     }
 
+    @Override
     public void entregarPremiacao() {
         Inventario.adicionarCartasLiberadas(Loja.abrirBooster());
+    }
+
+    @Override
+    public int progresso() {
+        
     }
 
     //usar abrirBoster() e adicionarCartasLiberadas(List<Carta> cartas)
