@@ -74,7 +74,7 @@ public class Loja {
                 }
             }
         } else {
-            throw new IllegalStateException("Saldo insuficiente de cardcoins para comprar um booster especial");
+            throw new InsuficientCoinException ("Saldo insuficiente de cardcoins para comprar um booster especial");
         }
     }
 

@@ -33,17 +33,17 @@ public class Deck {
 
     public void adicionarCarta(Carta carta) {
         if (quantidadeDeCartas >= 60 || (quantidadeDeCartas == 3 && !carta.getTipo().equals("mana"))) {
-            throw new IllegalStateException("O deck não pode conter mais cartas.");
+            throw new IrregularDeckException("O deck não pode conter mais cartas.");
         }
-
+    
         if (quantidadeDeCartas < 3 || carta.getTipo().equals("mana")) {
             cartasNoDeck.add(carta);
             inventario.remove(carta);
             quantidadeDeCartas++;
         } else {
-            throw new IllegalStateException("A carta não está no inventário do usuário");
+            throw new IrregularDeckException("A carta não está no inventário do usuário");
         }
-
+    
         if (quantidadeDeCartas >= 60) {
             disponibilidade = true;
         }
