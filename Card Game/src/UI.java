@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Main {
+public class UI {
     public static void main(String[] args) {
         // Criar um novo usuário
         Usuario usuario1 = Usuario.getInstance("Playereu", "123456789", "12345", 25, 'M', "usuario1@example.com");
